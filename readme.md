@@ -11,12 +11,19 @@
    cd node_exporter-1.9.1.linux-amd64
    ./node_exporter
    ```
-3. Visit [http://localhost:9100/metrics](http://localhost:9100/metrics) in browser.
-4. Get your WSL IP:
+
+   ![ss](ss_1.png)
+   
+4. Visit [http://localhost:9100/metrics](http://localhost:9100/metrics) in browser.
+
+   ![ss](ss_2.png)
+   
+6. Get your WSL IP:
    ```bash
    hostname -I
    ```
-
+   ![ss](ss_3.png)
+   
 ---
 
 ### **🔹 Part 2: Prometheus + Grafana via Docker Compose**
@@ -44,7 +51,8 @@ services:
     ports:
       - "3000:3000"
 ```
-
+   ![ss](ss_4.png)
+   
 #### `prometheus.yml` (Replace `<WSL_IP>`):
 ```yaml
 global:
@@ -55,14 +63,20 @@ scrape_configs:
     static_configs:
       - targets: ['<WSL_IP>:9100']
 ```
-
+   ![ss](ss_5.png)
+   
 > You can get `<WSL_IP>` from `hostname -I`. Use only the IP part.
 
 #### Run the stack:
 ```bash
 docker-compose up -d
 ```
+   ![ss](ss_6.png)
 
+   ![ss](ss_7.png)
+
+   ![ss](ss_8.png)
+   
 ---
 
 ### **🔹 Part 3: Set Up Grafana Dashboard**
@@ -71,11 +85,15 @@ docker-compose up -d
 2. Go to **Configuration → Data Sources → Add Data Source**
    - Choose **Prometheus**
    - URL: `http://prometheus:9090`
+  
+     ![ss](ss_9.png)
+     
 3. Import Dashboard:
    - Click "+" → **Import**
    - Use **Dashboard ID: `1860`**
    - Set data source → **Import**
-
+     ![ss](ss_10.png)
+     
 ---
 
 ### ✅ **Check Everything is Working**
